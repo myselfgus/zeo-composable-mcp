@@ -1,0 +1,62 @@
+{
+  "name": "zeo-composable-mcp",
+  "version": "2.1.0",
+  "description": "Advanced AI-native MCP server with semantic search, intelligent workflows, and real integrations",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "build": "tsc",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .ts,.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "composable-ai",
+    "cloudflare-workers",
+    "semantic-search",
+    "embeddings",
+    "workflow-automation",
+    "github-integration",
+    "web-intelligence",
+    "code-architecture",
+    "creative-ai"
+  ],
+  "author": {
+    "name": "MySelfGus",
+    "url": "https://github.com/myselfgus"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myselfgus/zeo-composable-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/myselfgus/zeo-composable-mcp/issues"
+  },
+  "homepage": "https://github.com/myselfgus/zeo-composable-mcp#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241106.0",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "wrangler": "^3.80.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
