@@ -1,62 +1,104 @@
 {
   "name": "zeo-composable-mcp",
-  "version": "2.1.0",
-  "description": "Advanced AI-native MCP server with semantic search, intelligent workflows, and real integrations",
-  "main": "src/index.ts",
+  "version": "1.0.0",
+  "description": "Revolutionary MCP Remote Server with 9 AI-Powered Composable Tools",
+  "main": "dist/zeo-mcp-server.js",
   "type": "module",
   "scripts": {
+    "build": "tsc && cp package.json dist/",
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "deploy:staging": "wrangler deploy --env staging",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:staging": "npm run build && wrangler deploy --env development",
+    "deploy:production": "npm run build && wrangler deploy --env production",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.ts",
     "type-check": "tsc --noEmit",
-    "test": "vitest",
-    "build": "tsc",
-    "format": "prettier --write .",
-    "lint": "eslint . --ext .ts,.js"
+    "clean": "rimraf dist",
+    "setup": "npm run clean && npm install",
+    "preview": "wrangler dev --remote",
+    "logs": "wrangler tail",
+    "kv:create": "wrangler kv:namespace create ZEO_KV",
+    "db:create": "wrangler d1 create zeo-composable-db",
+    "bucket:create": "wrangler r2 bucket create zeo-composable-storage",
+    "setup:secrets": "echo 'Run: wrangler secret put GITHUB_TOKEN && wrangler secret put OPENAI_API_KEY && wrangler secret put ANTHROPIC_API_KEY'",
+    "health": "curl https://zeo-composable-mcp.your-subdomain.workers.dev/health",
+    "docs:generate": "typedoc --out docs src",
+    "validate": "npm run type-check && npm run lint && npm run test"
   },
   "keywords": [
     "mcp",
-    "model-context-protocol",
+    "model-context-protocol", 
     "ai",
-    "composable-ai",
+    "artificial-intelligence",
     "cloudflare-workers",
+    "edge-computing",
+    "github-api",
     "semantic-search",
-    "embeddings",
+    "web-scraping",
+    "reasoning",
+    "ideation",
+    "code-generation",
     "workflow-automation",
-    "github-integration",
-    "web-intelligence",
-    "code-architecture",
-    "creative-ai"
+    "architecture",
+    "composable-ai"
   ],
   "author": {
-    "name": "MySelfGus",
+    "name": "Gustavo M E S",
+    "email": "gms@ireaje.cloud",
     "url": "https://github.com/myselfgus"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/myselfgus/zeo-composable-mcp.git"
+    "url": "https://github.com/myselfgus/zeo-composable-mcp.git"
   },
   "bugs": {
     "url": "https://github.com/myselfgus/zeo-composable-mcp/issues"
   },
   "homepage": "https://github.com/myselfgus/zeo-composable-mcp#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241106.0",
-    "@types/node": "^20.10.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint": "^8.57.0",
-    "prettier": "^3.1.0",
-    "typescript": "^5.3.0",
-    "vitest": "^1.0.0",
-    "wrangler": "^3.80.0"
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.11",
+    "ts-jest": "^29.1.2",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3",
+    "rimraf": "^5.0.5",
+    "typedoc": "^0.25.7",
+    "wrangler": "^3.28.0"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "workspaces": [
+    "packages/*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/**/*",
+    "src/**/*",
+    "README.md",
+    "LICENSE",
+    "wrangler.toml"
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/myselfgus"
   }
 }
