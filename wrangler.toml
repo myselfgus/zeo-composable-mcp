@@ -1,0 +1,72 @@
+# ZEO Composable MCP Server - Cloudflare Workers Configuration
+
+name = "zeo-composable-mcp"
+main = "dist/zeo-mcp-server.js"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment variables for production deployment
+[env.production]
+name = "zeo-composable-mcp-prod"
+route = { pattern = "zeo-mcp.YOUR_DOMAIN.workers.dev", zone_name = "YOUR_DOMAIN" }
+
+[env.production.vars]
+ZEO_VERSION = "1.0.0"
+ZEO_ENVIRONMENT = "production"
+
+# Development environment
+[env.development]
+name = "zeo-composable-mcp-dev"
+
+[env.development.vars]
+ZEO_VERSION = "1.0.0-dev"
+ZEO_ENVIRONMENT = "development"
+
+# KV Namespace for persistent memory and caching
+[[kv_namespaces]]
+binding = "ZEO_KV"
+id = "YOUR_KV_NAMESPACE_ID"
+preview_id = "YOUR_KV_PREVIEW_ID"
+
+# D1 Database for structured data storage
+[[d1_databases]]
+binding = "ZEO_DB"
+database_name = "zeo-composable-db"
+database_id = "YOUR_D1_DATABASE_ID"
+
+# R2 Bucket for file storage and large objects
+[[r2_buckets]]
+binding = "ZEO_BUCKET"
+bucket_name = "zeo-composable-storage"
+
+# AI binding for Cloudflare AI
+[ai]
+binding = "AI"
+
+# Build configuration
+[build]
+command = "npm run build"
+cwd = "."
+
+# Deployment scripts
+[triggers]
+crons = ["0 */6 * * *"]  # Health check every 6 hours
+
+# Worker limits and configuration
+[limits]
+cpu_ms = 30000  # 30 seconds max execution
+
+# Custom domains (optional)
+[routes]
+pattern = "api.zeo-mcp.com/*"
+zone_name = "zeo-mcp.com"
+
+# Environment-specific secrets (set via wrangler secret put)
+# GITHUB_TOKEN - for GitHub API access
+# OPENAI_API_KEY - for OpenAI API access  
+# ANTHROPIC_API_KEY - for Claude API access
+
+# Usage monitoring
+[observability]
+enabled = true
+head_sampling_rate = 0.01
