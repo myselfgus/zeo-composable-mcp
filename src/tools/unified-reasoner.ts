@@ -155,7 +155,7 @@ export class UnifiedReasoner {
       metadata: {
         depth_level: args.depth_level || "moderate",
         confidence_score: reasoningResult.confidence,
-        execution_time: Date.now() - Date.now(),
+        execution_time: Date.now() - startTime,
         reasoning_quality: await this.assessReasoningQuality(reasoningResult)
       },
       timestamp: new Date().toISOString()
@@ -343,7 +343,7 @@ export class UnifiedReasoner {
       key_components: await this.extractKeyComponents(args.problem),
       hidden_assumptions: await this.identifyAssumptions(args.problem),
       potential_biases: await this.identifyBiases(args.problem),
-      success_criteria: await this.defineSucessCriteria(args.problem, args.goals),
+       success_criteria: await this.defineSuccessCriteria(args.problem, args.goals),
       resource_requirements: await this.assessResourceRequirements(args.problem),
       risk_factors: await this.identifyRisks(args.problem),
       similar_problems: await this.findSimilarProblems(args.problem),
@@ -709,7 +709,7 @@ export class UnifiedReasoner {
       solution_space_mapping: await this.mapSolutionSpace(args.problem, args.constraints)
     };
 
-    const systematicSolution = await this.deriveSysteamticSolution(systematicFramework, args.problem);
+    const systematicSolution = await this.deriveSystematicSolution(systematicFramework, args.problem);
 
     return {
       strategy: "systematic",
@@ -851,11 +851,18 @@ export class UnifiedReasoner {
   private async extractKeyComponents(problem: string): Promise<string[]> { return ["component1", "component2"]; }
   private async identifyAssumptions(problem: string): Promise<string[]> { return ["assumption1", "assumption2"]; }
   private async identifyBiases(problem: string): Promise<string[]> { return ["confirmation bias", "anchoring bias"]; }
-  private async defineSucessCriteria(problem: string, goals?: string[]): Promise<string[]> { return goals || ["solve problem"]; }
+  private async defineSuccessCriteria(problem: string, goals?: string[]): Promise<string[]> { return goals || ["solve problem"]; }
   private async assessResourceRequirements(problem: string): Promise<any> { return { time: "moderate", complexity: "low" }; }
   private async identifyRisks(problem: string): Promise<string[]> { return ["risk1", "risk2"]; }
   private async findSimilarProblems(problem: string): Promise<string[]> { return ["similar problem 1", "similar problem 2"]; }
   private async recommendApproaches(problem: string): Promise<string[]> { return ["approach1", "approach2"]; }
+  private async deriveSystematicSolution(framework: any, problem: string): Promise<any> {
+    return {
+      conclusion: `Derived systematic solution for ${problem}`,
+      confidence: 0.8,
+      framework_steps: Object.keys(framework)
+    };
+  }
   private calculateAnalysisConfidence(analysis: any): number { return 0.75; }
   private suggestNextSteps(analysis: any): string[] { return ["next step 1", "next step 2"]; }
   
