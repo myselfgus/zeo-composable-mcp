@@ -592,4 +592,12 @@ export class ImplementationBridge {
   private recommendTeamSize(effort: number): number { return Math.ceil(effort / 30); }
   private identifySkillRequirements(codeModules: any, args: any): string[] { return ["TypeScript", "Node.js"]; }
   private generateRiskMitigationStrategies(codeModules: any, architecture: any): any[] { return []; }
+
+  // Simple documentation generator (placeholder)
+  private async generateDocumentation(_args: any): Promise<any> {
+    return {
+      generated_at: new Date().toISOString(),
+      sections: []
+    };
+  }
 }
