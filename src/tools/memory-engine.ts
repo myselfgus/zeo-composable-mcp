@@ -372,7 +372,7 @@ export class MemoryEngine {
       total_processed: results.length,
       successful,
       failed,
-      results: args.include_embeddings ? results : results.map(r => ({
+      results: args.include_embeddings ? results : results.map((r: any) => ({
         success: r.success,
         memory_id: r.memory_id,
         error: r.error
