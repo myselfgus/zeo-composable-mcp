@@ -132,7 +132,7 @@ export class GitHubOrchestrator {
       throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
     }
     
-    const repos = await response.json();
+    const repos: any[] = await response.json();
     
     return {
       action: "list_repos",
@@ -159,10 +159,10 @@ export class GitHubOrchestrator {
       throw new Error(`Repository not found: ${owner}/${repo}`);
     }
     
-    const repoData = await response.json();
+    const repoData: any = await response.json();
     
     // Get additional stats
-    const [languages, contributors, branches] = await Promise.all([
+    const [languages, contributors, branches]: [any, any[], any[]] = await Promise.all([
       fetch(`${this.baseUrl}/repos/${owner}/${repo}/languages`, { headers }).then(r => r.json()),
       fetch(`${this.baseUrl}/repos/${owner}/${repo}/contributors?per_page=10`, { headers }).then(r => r.json()),
       fetch(`${this.baseUrl}/repos/${owner}/${repo}/branches?per_page=10`, { headers }).then(r => r.json())
