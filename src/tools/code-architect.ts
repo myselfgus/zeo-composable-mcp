@@ -151,7 +151,7 @@ export class CodeArchitect {
     const dependencyAnalysis = await this.analyzeDependencyGraph(codebaseStructure);
     
     // Security analysis
-    const securityAnalysis = await this.performSecurityAnalysis(codebaseStructure, args.security_standards);
+    const securityAnalysis = await this.performSecurityAudit(codebaseStructure, args.security_standards);
     
     // Performance analysis
     const performanceAnalysis = await this.analyzePerformanceCharacteristics(codebaseStructure);
@@ -847,5 +847,13 @@ export class CodeArchitect {
     const antiPatternPenalty = antiPatterns.critical * 2 + antiPatterns.major * 1.5 + antiPatterns.minor * 0.5;
     const smellPenalty = smells.critical * 1.5 + smells.major * 1 + smells.minor * 0.3;
     return Math.max(0, patternScore - antiPatternPenalty - smellPenalty);
+  }
+  
+  // Basic documentation generator (placeholder)
+  private async generateDocumentation(_args: any): Promise<any> {
+    return {
+      sections: [],
+      generated_at: new Date().toISOString()
+    };
   }
 }
