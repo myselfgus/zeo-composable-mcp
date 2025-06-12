@@ -114,15 +114,36 @@ async function handleMCP(request: Request, env: CloudflareEnv): Promise<Response
   }
   
   try {
-    const body = await request.json();
+    const body: any = await request.json();
     const server = createZeoMCPServer(env);
-    const response = await server.handleRequest(body);
     
-    return new Response(JSON.stringify(response), {
+    // Handle MCP requests properly
+    if (body.method === "tools/list") {
+      const tools = await server.request({ method: "tools/list" }, ListToolsRequestSchema);
+      return new Response(JSON.stringify(tools), {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    }
+    
+    if (body.method === "tools/call") {
+      const result = await server.request(body as any, CallToolRequestSchema);
+      return new Response(JSON.stringify(result), {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    }
+    
+    return new Response(JSON.stringify({ error: "Method not supported" }), {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"
-      }
+      },
+      status: 400
     });
   } catch (error) {
     return new Response(JSON.stringify({

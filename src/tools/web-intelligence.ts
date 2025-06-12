@@ -31,11 +31,13 @@ const WebActionSchema = z.object({
 
 export class WebIntelligence {
   private ai: any;
-  private kv: any;
+  private kv: KVNamespace;
+  private db: D1Database;
 
-  constructor(ai: any, kv: any) {
+  constructor(ai: any, kv: KVNamespace, db: D1Database) {
     this.ai = ai;
     this.kv = kv;
+    this.db = db;
   }
 
   async execute(args: z.infer<typeof WebActionSchema>) {
